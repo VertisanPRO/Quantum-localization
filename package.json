@@ -28,6 +28,7 @@
         "@biomejs/biome": "^2.2.4",
         "@tsconfig/strictest": "^2.0.6",
         "@types/bun": "^1.2.22",
+        "i18next": "^25.5.2",
         "tsdown": "^0.15.4",
         "typescript": "^5.9.2"
     }
