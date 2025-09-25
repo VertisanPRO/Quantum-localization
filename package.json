@@ -1,7 +1,6 @@
 {
     "name": "@vertisanpro/quantum-localization",
-    "version": "1.0.0",
-    "description": "A starter for creating a TypeScript package.",
+    "version": "1.0.1",
     "type": "module",
     "license": "MIT",
     "repository": {
