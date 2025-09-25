@@ -1,3 +1,5 @@
 *
 !.gitignore
-!*.json
+!LICENSE.md
+!languages/
+!languages/*
