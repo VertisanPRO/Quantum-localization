@@ -11,17 +11,17 @@ permissions:
   contents: write
 
 concurrency:
-  group: convert
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   convert:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
-          fetch-depth: 0
+          ref: main
 
       - name: Caching dependencies
         uses: actions/cache@v4
@@ -40,7 +40,28 @@ jobs:
       - name: Convert the English translations
         run: bun --bun run convert
 
-      - name: Commit and Push to languages branch
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: translations
+          path: languages/en_US.json
+
+  push:
+    runs-on: ubuntu-latest
+    needs: convert
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          ref: languages
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: translations
+          path: languages/
+
+      - name: Commit and push
         uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: 'Update en_US translations'
