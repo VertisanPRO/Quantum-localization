@@ -61,6 +61,11 @@ jobs:
           name: translations
           path: languages/
 
+      - name: debug
+        run: |
+          ls -R
+          cat languages/en_US.json
+
       - name: Commit and push
         uses: stefanzweifel/git-auto-commit-action@v6
         with:
