@@ -1,0 +1,34 @@
+{
+    "name": "quantum-languages",
+    "version": "0.0.1",
+    "description": "A starter for creating a TypeScript package.",
+    "type": "module",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/VertisanPRO/quantum-localization.git"
+    },
+    "files": [
+        "dist"
+    ],
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": "./dist/index.js"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "build": "tsdown",
+        "convert": "bun --bun run build --config ./tsdown.dev.config.ts && bun --bun run ./dist/convert.js"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^2.2.4",
+        "@tsconfig/strictest": "^2.0.6",
+        "@types/bun": "^1.2.22",
+        "tsdown": "^0.15.4",
+        "typescript": "^5.9.2"
+    }
+}

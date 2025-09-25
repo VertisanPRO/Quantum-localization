@@ -1,0 +1,47 @@
+name: Convert and push
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/translations/**'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: convert
+  cancel-in-progress: false
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Caching dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Convert the English translations
+        run: bun --bun run convert
+
+      - name: Commit and Push to languages branch
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: 'Update en_US translations'
+          branch: languages
+          file_pattern: 'languages/en_US.json'
