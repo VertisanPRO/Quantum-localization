@@ -20,8 +20,7 @@
         "access": "public"
     },
     "scripts": {
-        "build": "tsdown",
-        "convert": "bun --bun run build --config ./tsdown.dev.config.ts && bun --bun run ./dist/convert.js"
+        "build": "tsdown"
     },
     "devDependencies": {
         "@biomejs/biome": "^2.2.4",
